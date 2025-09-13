@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import {
   Cloud, Sun, CloudRain, CloudSnow, CloudDrizzle, MapPin,
   Thermometer, Droplets, Wind, Eye, Gauge, Sunrise
@@ -87,7 +87,7 @@ function App() {
     }
   };
 
-  useEffect(() => { fetchWeather(city); }, []);
+  useEffect(() => { fetchWeather(city); }, [city]);
 
   const handleSearch = (e) => {
     e.preventDefault();
