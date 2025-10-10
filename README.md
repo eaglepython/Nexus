@@ -23,6 +23,12 @@
   <strong>🌟 Where meteorology meets cutting-edge technology 🌟</strong>
 </p>
 
+<p align="center">
+  <a href="https://eaglepython.github.io/Nexus/" target="_blank">
+    <img src="https://img.shields.io/badge/🌐%20Live%20Demo-Visit%20Site-blue?style=for-the-badge" />
+  </a>
+</p>
+
 </div>
 
 ---
