@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import {
   Cloud, Sun, CloudRain, CloudSnow, CloudDrizzle, MapPin,
-  Thermometer, Droplets, Wind, Eye, Gauge, Sunrise
+  Thermometer, Droplets, Wind, Eye, Gauge, Sunrise, RotateCw
 } from 'lucide-react';
 
 // ====== Config & Styles ======
@@ -12,6 +12,18 @@ const glassStyle = {
   backdropFilter: 'blur(10px)',
   border: '1px solid rgba(255, 255, 255, 0.3)',
   boxShadow: '0 8px 32px rgba(0, 0, 0, 0.1)'
+};
+
+// ====== Utility Functions ======
+const convertTemperature = (temp, unit) => {
+  if (unit === 'fahrenheit') {
+    return (temp * 9/5) + 32;
+  }
+  return temp; // Celsius
+};
+
+const getTemperatureUnit = (unit) => {
+  return unit === 'fahrenheit' ? '°F' : '°C';
 };
 
 // ====== Utility Components ======
@@ -59,6 +71,7 @@ function App() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [city, setCity] = useState('Dallas, Texas');
+  const [temperatureUnit, setTemperatureUnit] = useState('celsius');
 
   // --- Fetch Weather Data ---
   const fetchWeather = async (cityName) => {
@@ -92,6 +105,10 @@ function App() {
   const handleSearch = (e) => {
     e.preventDefault();
     if (city.trim()) fetchWeather(city.trim());
+  };
+
+  const toggleTemperatureUnit = () => {
+    setTemperatureUnit(prev => prev === 'celsius' ? 'fahrenheit' : 'celsius');
   };
 
   // --- Loading State ---
@@ -278,9 +295,43 @@ function App() {
                       <div style={{
                         fontSize: '56px',
                         fontWeight: 'bold',
-                        color: '#1e293b'
+                        color: '#1e293b',
+                        position: 'relative',
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '20px'
                       }}>
-                        {Math.round(weather.main.temp)}°C
+                        <span>{Math.round(convertTemperature(weather.main.temp, temperatureUnit))}{getTemperatureUnit(temperatureUnit)}</span>
+                        <button
+                          onClick={toggleTemperatureUnit}
+                          style={{
+                            background: 'rgba(59, 130, 246, 0.1)',
+                            border: '1px solid rgba(59, 130, 246, 0.3)',
+                            borderRadius: '12px',
+                            padding: '12px 16px',
+                            cursor: 'pointer',
+                            fontSize: '16px',
+                            color: '#3b82f6',
+                            fontWeight: '600',
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '6px',
+                            transition: 'all 0.2s',
+                            minWidth: '60px',
+                            justifyContent: 'center'
+                          }}
+                          onMouseOver={(e) => {
+                            e.target.style.background = 'rgba(59, 130, 246, 0.2)';
+                            e.target.style.transform = 'scale(1.05)';
+                          }}
+                          onMouseOut={(e) => {
+                            e.target.style.background = 'rgba(59, 130, 246, 0.1)';
+                            e.target.style.transform = 'scale(1)';
+                          }}
+                        >
+                          <RotateCw size={18} />
+                          {temperatureUnit === 'celsius' ? '°F' : '°C'}
+                        </button>
                       </div>
                       <div style={{
                         fontSize: '18px',
@@ -292,7 +343,7 @@ function App() {
                     </div>
                   </div>
                   <div style={{ color: '#6b7280' }}>
-                    Feels like {Math.round(weather.main.feels_like)}°C
+                    Feels like {Math.round(convertTemperature(weather.main.feels_like, temperatureUnit))}{getTemperatureUnit(temperatureUnit)}
                   </div>
                 </div>
 
@@ -311,7 +362,7 @@ function App() {
                     <Thermometer size={24} style={{ color: '#3b82f6', margin: '0 auto 8px' }} />
                     <div style={{ fontSize: '14px', color: '#6b7280', marginBottom: '4px' }}>High/Low</div>
                     <div style={{ fontSize: '18px', fontWeight: '600', color: '#1e293b' }}>
-                      {Math.round(weather.main.temp_max)}° / {Math.round(weather.main.temp_min)}°
+                      {Math.round(convertTemperature(weather.main.temp_max, temperatureUnit))}° / {Math.round(convertTemperature(weather.main.temp_min, temperatureUnit))}°
                     </div>
                   </div>
                   <div style={{
@@ -428,7 +479,7 @@ function App() {
                         color: '#1e293b',
                         margin: '8px 0'
                       }}>
-                        {Math.round(day.main.temp)}°C
+                        {Math.round(convertTemperature(day.main.temp, temperatureUnit))}{getTemperatureUnit(temperatureUnit)}
                       </div>
                       <div style={{
                         fontSize: '14px',
