@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import {
   Cloud, Sun, CloudRain, CloudSnow, CloudDrizzle, MapPin,
-  Thermometer, Droplets, Wind, Eye, Gauge, Sunrise, RotateCw
+  Thermometer, Droplets, Wind, Eye, Gauge, Sunrise, RotateCw,
+  Globe, Navigation, Clock as ClockIcon, Info
 } from 'lucide-react';
 
 // ====== Config & Styles ======
@@ -426,6 +427,102 @@ function App() {
                     <div style={{ fontSize: '18px', fontWeight: '600', color: '#1e293b' }}>
                       {new Date(weather.sys.sunrise * 1000).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                     </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* City Information */}
+            <div style={{
+              ...glassStyle,
+              borderRadius: '24px',
+              padding: '32px',
+              marginBottom: '24px'
+            }}>
+              <h3 style={{
+                fontSize: '24px',
+                fontWeight: 'bold',
+                color: '#1e293b',
+                marginBottom: '24px',
+                textAlign: 'center',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: '8px'
+              }}>
+                <Info size={28} style={{ color: '#3b82f6' }} />
+                City Information
+              </h3>
+              <div style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
+                gap: '20px'
+              }}>
+                <div style={{
+                  backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                  padding: '20px',
+                  borderRadius: '16px',
+                  textAlign: 'center'
+                }}>
+                  <Globe size={32} style={{ color: '#3b82f6', margin: '0 auto 12px' }} />
+                  <div style={{ fontSize: '16px', color: '#6b7280', marginBottom: '8px' }}>Country</div>
+                  <div style={{ fontSize: '20px', fontWeight: '600', color: '#1e293b' }}>
+                    {weather.sys.country}
+                  </div>
+                  <div style={{ fontSize: '14px', color: '#6b7280', marginTop: '4px' }}>
+                    Region Code
+                  </div>
+                </div>
+                
+                <div style={{
+                  backgroundColor: 'rgba(16, 185, 129, 0.1)',
+                  padding: '20px',
+                  borderRadius: '16px',
+                  textAlign: 'center'
+                }}>
+                  <Navigation size={32} style={{ color: '#10b981', margin: '0 auto 12px' }} />
+                  <div style={{ fontSize: '16px', color: '#6b7280', marginBottom: '8px' }}>Coordinates</div>
+                  <div style={{ fontSize: '18px', fontWeight: '600', color: '#1e293b' }}>
+                    {weather.coord.lat.toFixed(2)}°N
+                  </div>
+                  <div style={{ fontSize: '18px', fontWeight: '600', color: '#1e293b' }}>
+                    {weather.coord.lon.toFixed(2)}°E
+                  </div>
+                </div>
+
+                <div style={{
+                  backgroundColor: 'rgba(168, 85, 247, 0.1)',
+                  padding: '20px',
+                  borderRadius: '16px',
+                  textAlign: 'center'
+                }}>
+                  <ClockIcon size={32} style={{ color: '#a855f7', margin: '0 auto 12px' }} />
+                  <div style={{ fontSize: '16px', color: '#6b7280', marginBottom: '8px' }}>Local Time</div>
+                  <div style={{ fontSize: '18px', fontWeight: '600', color: '#1e293b' }}>
+                    {new Date(Date.now() + (weather.timezone * 1000)).toLocaleTimeString([], {
+                      hour: '2-digit',
+                      minute: '2-digit',
+                      timeZone: 'UTC'
+                    })}
+                  </div>
+                  <div style={{ fontSize: '14px', color: '#6b7280', marginTop: '4px' }}>
+                    UTC{weather.timezone >= 0 ? '+' : ''}{(weather.timezone / 3600).toFixed(1)}
+                  </div>
+                </div>
+
+                <div style={{
+                  backgroundColor: 'rgba(245, 158, 11, 0.1)',
+                  padding: '20px',
+                  borderRadius: '16px',
+                  textAlign: 'center'
+                }}>
+                  <Sunrise size={32} style={{ color: '#f59e0b', margin: '0 auto 12px' }} />
+                  <div style={{ fontSize: '16px', color: '#6b7280', marginBottom: '8px' }}>Sunset</div>
+                  <div style={{ fontSize: '18px', fontWeight: '600', color: '#1e293b' }}>
+                    {new Date(weather.sys.sunset * 1000).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                  </div>
+                  <div style={{ fontSize: '14px', color: '#6b7280', marginTop: '4px' }}>
+                    Day Length: {Math.round((weather.sys.sunset - weather.sys.sunrise) / 3600)}h {Math.round(((weather.sys.sunset - weather.sys.sunrise) % 3600) / 60)}m
                   </div>
                 </div>
               </div>
