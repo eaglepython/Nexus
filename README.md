@@ -27,6 +27,9 @@
   <a href="https://eaglepython.github.io/Nexus/" target="_blank">
     <img src="https://img.shields.io/badge/🌐%20Live%20Demo-Visit%20Site-blue?style=for-the-badge" />
   </a>
+  <a href="https://github.com/eaglepython/Nexus" target="_blank">
+    <img src="https://img.shields.io/badge/📂%20Repository-View%20Code-green?style=for-the-badge&logo=github" />
+  </a>
 </p>
 
 </div>
