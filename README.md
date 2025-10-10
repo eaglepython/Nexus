@@ -8,6 +8,7 @@
   <img src="https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white" />
   <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black" />
   <img src="https://img.shields.io/badge/OpenWeather-EA6100?style=for-the-badge&logo=openweathermap&logoColor=white" />
+  <img src="https://img.shields.io/badge/GitHub%20Pages-Live-success?style=for-the-badge&logo=github&logoColor=white" />
 </p>
 
 <p align="center">
